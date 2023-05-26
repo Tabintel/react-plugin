@@ -8,22 +8,37 @@ Figure out if interface/type can be used in JS projects. If not, how do we enfor
 
 In JavaScript, the concepts of interfaces and types are not natively available like they are in statically typed languages such as TypeScript. However, JavaScript does provide alternatives and patterns to achieve similar functionality.
 
-### Enforcing Mandatory Props
+Based on the information provided, here is an outline of the Single Transaction Bridge Flow using Socket:
 
-To enforce mandatory props in JavaScript projects, we can follow these approaches:
+1. User Interaction:
+   - User selects the sending and destination chains.
 
-1. **Documentation**: Clearly document the required props for each component or module. Developers can refer to the documentation to understand which props are mandatory and need to be provided when using the component or module.
+2. Token Selection:
+   - Based on the selected chains, identify the tokens that can be bridged.
+   - Populate the "from-token-list" and "to-token-list" components with supported tokens for bridging.
+   - User selects the token to be sent and received.
 
-2. **Runtime Checks**: Implement runtime checks within the component or module code to verify the presence of mandatory props. This can be done using conditional statements or assertions to ensure that the required props are provided before proceeding with the execution.
+3. Route Selection:
+   - Fetch available routes between the selected chains using the quote endpoint.
+   - Display the available routes to the user.
+   - User selects a desired route for the transaction.
 
-3. **Default Values**: Set default values for props that are not provided. This can help handle cases where certain props are not mandatory but still need to have a valid value. By providing appropriate default values, we can ensure that the component or module functions as expected even if the props are not explicitly provided.
+4. ERC-20 Token Check:
+   - Check if the selected token is an ERC-20 token.
+   - If it is not an ERC-20 token, skip to step 8.
 
-### Conveying Optional Props
+5. Allowance Check:
+   - Request allowance for spending the sending token from the user using the check-allowance endpoint.
+   - This step ensures that the Socket contract can transfer the token on behalf of the user.
 
-When it comes to conveying optional props in JavaScript projects, we can adopt the following strategies:
+6. Transaction Data Retrieval:
+   - Fetch the callData for the selected route from the /server/build-tx endpoint.
+   - The callData contains the necessary transaction details and instructions for the bridge.
 
-1. **Documentation**: Clearly document which props are optional and provide information about their purpose and behavior. This helps developers understand the available options and decide whether they need to provide those props based on their specific requirements.
+7. Contract Call and Bridge:
+   - Initiate a contract call to send the callData to the Socket contracts.
+   - The Socket contract bridges and swaps the tokens based on the provided instructions.
 
-2. **Default Values**: Similar to enforcing mandatory props, we can define default values for optional props. This allows developers to omit those props if they are satisfied with the default behavior.
-
-3. **Type Annotations**: Although JavaScript itself doesn't have built-in type systems like interfaces or types, if we are using a type-checking tool like TypeScript, we can leverage type annotations to explicitly define the optional props. TypeScript provides syntax for specifying optional properties using the `?` symbol after the prop name.
+8. Transaction Status Tracking:
+   - Track the status of the transaction using Socket Bridge Status APIs.
+   - This allows you to monitor the progress and completion of the bridge transaction.
