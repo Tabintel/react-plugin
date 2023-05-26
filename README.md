@@ -18,9 +18,6 @@ To enforce mandatory props in JavaScript projects, we can follow these approache
 
 3. **Default Values**: Set default values for props that are not provided.
 
-## Interfaces and Types in JavaScript Projects
-
-In JavaScript, the concepts of interfaces and types are not natively available like they are in statically typed languages such as TypeScript. However, JavaScript does provide alternatives and patterns to achieve similar functionality.
 
 ## Single Transaction Bridge Flow using Socket:
 
